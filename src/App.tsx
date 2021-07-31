@@ -3,6 +3,10 @@ import { Header } from './components/Header';
 import Modal from 'react-modal';
 import { GlobalStyled } from "./styles/global";
 import { useState } from 'react';
+import { NewTransactionModal } from './components/NewTransactionModal';
+import { TransactionsProvider } from './hooks/useTransactions';
+
+Modal.setAppElement('#root');
 
 export function App() {
 
@@ -17,16 +21,12 @@ export function App() {
     }
 
   return (
-    <>
+    <TransactionsProvider >
      <Header onOpenNewtransactionModal={handleOpenNewTransactionModal}/>
       <Dashboard />
-      <Modal isOpen={isNewTransactionModalOpen}
-          onRequestClose={handleCloseNewTransactionModal}
-      >
-          <h2>Cadastrar transação</h2>
-      </Modal>
+      <NewTransactionModal isOpen={isNewTransactionModalOpen}  onRequestClose={handleCloseNewTransactionModal}/>
      <GlobalStyled />
-    </>
+    </TransactionsProvider>
   );
 }
 
